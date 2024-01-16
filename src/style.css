@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {    
+    background: rgba(255, 160, 122, 0.2);     
+    background-image: url(../img/phon_main.jpg);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+}
+footer {
+    position: absolute;    
+    bottom: 0;    
+    width: 100%;        
+    }
+
+#links_to_resources{
+font-style: italic;
+font-size: small;
+}
+#logo{
+    float: left;
+}
+#logo_txt{
+    font-size: 36px;
+    font-weight: 600;
+    color: burlywood;
+    line-height: 2.5;
+}
