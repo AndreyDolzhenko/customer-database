@@ -27,3 +27,10 @@ font-size: small;
     color: burlywood;
     line-height: 2.5;
 }
+#registration{
+    float: right;    
+    margin: 30px;
+    text-decoration: underline;
+    color: brown;
+    cursor: pointer;
+}
