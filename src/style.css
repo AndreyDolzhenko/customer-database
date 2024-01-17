@@ -13,7 +13,9 @@ footer {
     bottom: 0;    
     width: 100%;        
     }
-
+input{
+    margin: 5px;
+}
 #links_to_resources{
 font-style: italic;
 font-size: small;
@@ -33,4 +35,15 @@ font-size: small;
     text-decoration: underline;
     color: brown;
     cursor: pointer;
+}
+#registration:hover{    
+    color: cadetblue;
+}
+#registration_form{
+    width: 20%;
+    height: auto;
+    border: 1px solid burlywood;
+    float: right;
+    display: none;
+    margin: 50px;
 }
