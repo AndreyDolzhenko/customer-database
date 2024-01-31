@@ -2,6 +2,12 @@
 
 import { Router } from "express";
 
+import {
+    getAllEmployees,
+} from "./controller.js";
+
 const router = Router();
 
-router.get('/', () =>{});
+router.get('/', getAllEmployees);
+
+export default router;
