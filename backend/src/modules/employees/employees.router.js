@@ -10,4 +10,6 @@ const router = Router();
 
 router.get('/', getAllEmployees);
 
+router.post('/', getAllEmployees);
+
 export default router;

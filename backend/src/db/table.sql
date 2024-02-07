@@ -31,3 +31,5 @@ CREATE TABLE employees (
     ALTER TABLE employees RENAME COLUMN code_employees TO id;
     ALTER TABLE employees ALTER COLUMN employee_name TYPE character varying(50);
     ALTER TABLE employees ALTER COLUMN wage TYPE numeric(12,2) NOT NULL;
+
+	INSERT INTO employees (code_companie, code_position, code_subdivision, employee_name, wage) VALUES (3, 2, 1, 'Крутов Олег Игоревич', 270000.00), (3, 1, 1, 'Денежка Мария Михайловна', 150000.00), (1, 3, 2, 'Успехов Пётр Сергеевич', 120000.00), (1, 3, 3, 'Малышкина Оксана Владимировна', 90000.00), (2, 4, 3, 'Заскокина Людмила Филипповна', 78000.00);

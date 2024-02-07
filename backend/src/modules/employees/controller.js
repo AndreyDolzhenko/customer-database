@@ -14,6 +14,14 @@ function getAllEmployees(req, res) {
     });
 }
 
+function createEmployee(req, res) {
+    pool.query(createEmployeeQuery, (error) => {
+        if (error) throw error;
+        res.status(201).text('Сотрудник успешно создан');
+    });
+}
+
 export {
     getAllEmployees,
+    createEmployee,
 };
