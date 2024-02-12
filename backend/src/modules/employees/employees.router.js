@@ -4,13 +4,13 @@ import { Router } from "express";
 
 import {
     getAllEmployees,
-    // createEmployee,
+    createEmployee,
 } from "./controller.js";
 
 const router = Router();
 
 router.get('/', getAllEmployees);
 
-// router.post('/', createEmployee);
+router.post('/', createEmployee);
 
 export default router;

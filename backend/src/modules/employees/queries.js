@@ -1,8 +1,8 @@
-const getAllEmployees = 'SELECT * FROM companies';
+// const getAllEmployees = 'SELECT * FROM employees';
 
-const getDataEmployees = 'SELECT e.id, c.name_companie, p.name_position, s.name_subdivision, e.employee_name, e.wage FROM employees AS e JOIN companies AS c ON e.code_companie=c.code_companie JOIN positions AS p ON e.code_position=p.code_position JOIN subdivisions AS s ON e.code_subdivision=s.code_subdivision;';
+const getAllEmployees = 'SELECT e.id, c.name_companie, p.name_position, s.name_subdivision, e.employee_name, e.wage FROM employees AS e LEFT JOIN companies AS c ON e.code_companie=c.code_companie LEFT JOIN positions AS p ON e.code_position=p.code_position LEFT JOIN subdivisions AS s ON e.code_subdivision=s.code_subdivision;';
 
-const createEmployee = '';
+const createEmployee = 'INSERT INTO employees (code_companie, code_position, code_subdivision, employee_name, wage) VALUES ($1, $2, $3, $4, $5);';
 
 export {
     getAllEmployees,
