@@ -11,11 +11,11 @@ import {
 } from "./queries.js";
 
 function getAllEmployees(req, res) {
-    const { 
-        id,
+    const {         
         namePosition: name_position,
-     } = req.body;
-    pool.query(getAllEmployeesQuery, [id, name_position], (error, result) => {
+    } = req.query;
+    console.log(name_position);
+    pool.query(getAllEmployeesQuery, [name_position], (error, result) => {
         if (error) throw error;
         res.status(200).json(result.rows);            
     });
@@ -36,20 +36,26 @@ function createEmployee(req, res) {
 }
 
 function deleteEmployee(req, res) {
-    const {
-        id,
-        employeeName: employee_name,
-    } = req.body;
-    pool.query(deleteEmployeeQuery, [id, employee_name], (error) => {
+    const { id } = req.params;
+    pool.query(deleteEmployeeQuery, [id], (error, result) => {
         if (error) throw error;
-        res.status(202).send(`Сотрудник ${employee_name} удалён`);           
+        const deletedEmployee = result.rows[0];        
+        res.status(200).send(`Сотрудник ${deletedEmployee.employee_name} удалён`);           
     });
 }
 
 function updateEmployee(req, res) {
-    pool.query(updateEmployeeQuery, (error, result) => {
+    const { id } = req.params;
+    const {        
+        nameCompanie: name_companie,
+        namePosition: name_position,
+        nameSubdivision: name_subdivision,
+        employeeName: employee_name,
+        wage,
+     } = req.body;
+    pool.query(updateEmployeeQuery, [id, wage], (error, result) => {
         if (error) throw error;
-        res.status(203).json(result.rows);            
+        res.status(200).send('Сотрудник успешно обновлён');            
     });
 }
 

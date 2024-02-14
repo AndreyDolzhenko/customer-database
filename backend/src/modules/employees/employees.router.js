@@ -15,8 +15,8 @@ router.get('/', getAllEmployees);
 
 router.post('/', createEmployee);
 
-router.delete('/', deleteEmployee);
+router.delete('/:id', deleteEmployee);
 
-router.update('/', updateEmployee);
+router.put('/:id', updateEmployee);
 
 export default router;
