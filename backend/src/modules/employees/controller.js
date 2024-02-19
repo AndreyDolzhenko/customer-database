@@ -4,20 +4,39 @@
 import pool from "../../db/db.js";
 
 import {
+    getEmployeesById as getEmployeesByIdQuery,
     getAllEmployees as getAllEmployeesQuery,
     createEmployee as createEmployeeQuery,
     deleteEmployee as deleteEmployeeQuery,
     updateEmployee as updateEmployeeQuery,
 } from "./queries.js";
 
+function getEmployeesById(req, res) {
+    const { id } = req.query;  
+    if (id) {
+        pool.query(getEmployeesByIdQuery, [id], (error, result) => {
+            if (error) throw error;
+            res.status(200).json(result.rows);       
+        });
+    }  else{
+        pool.query(getAllEmployeesQuery, (error, result) => {
+            if (error) throw error;
+            res.status(200).json(result.rows);            
+        });
+    }
+    
+}
+
 function getAllEmployees(req, res) {
-    const {         
-        namePosition: name_position,
-    } = req.query;
-    console.log(name_position);
-    pool.query(getAllEmployeesQuery, [name_position], (error, result) => {
+          
+    pool.query(getAllEmployeesQuery, (error, result) => {
         if (error) throw error;
-        res.status(200).json(result.rows);            
+        res.status(200).json(result.rows);  
+          
+        // for (let index = 0; index < result.rows.length; index++) {
+            
+        //     console.log(result.rows[index].name_companie);
+        // }       
     });
 }
 
@@ -53,13 +72,14 @@ function updateEmployee(req, res) {
         employeeName: employee_name,
         wage,
      } = req.body;
-    pool.query(updateEmployeeQuery, [id, wage], (error, result) => {
+    pool.query(updateEmployeeQuery, [id, employee_name, wage], (error, result) => {
         if (error) throw error;
         res.status(200).send('Сотрудник успешно обновлён');            
     });
 }
 
 export {
+    getEmployeesById,
     getAllEmployees,
     createEmployee,
     deleteEmployee,

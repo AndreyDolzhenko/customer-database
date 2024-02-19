@@ -35,3 +35,7 @@ CREATE TABLE employees (
 	INSERT INTO employees (code_companie, code_position, code_subdivision, employee_name, wage) VALUES (3, 2, 1, 'Крутов Олег Игоревич', 270000.00), (3, 1, 1, 'Денежка Мария Михайловна', 150000.00), (1, 3, 2, 'Успехов Пётр Сергеевич', 120000.00), (1, 3, 3, 'Малышкина Оксана Владимировна', 90000.00), (2, 4, 3, 'Заскокина Людмила Филипповна', 78000.00);
 
 	SELECT e.id, c.name_companie, p.name_position, s.name_subdivision, e.employee_name, e.wage FROM employees AS e JOIN companies AS c ON e.code_companie=c.code_companie JOIN positions AS p ON e.code_position=p.code_position JOIN subdivisions AS s ON e.code_subdivision=s.code_subdivision;
+
+	SELECT CASE WHEN code_companie>0 AND code_companie<10 THEN employee_name ELSE 'not found' END FROM employees;
+
+	SELECT CASE WHEN e.id>0 AND e.id<10 THEN (e.id, c.name_companie, p.name_position, s.name_subdivision, e.employee_name, e.wage) ELSE 'not found' END FROM employees AS e LEFT JOIN companies AS c ON e.code_companie=c.code_companie LEFT JOIN positions AS p ON e.code_position=p.code_position LEFT JOIN subdivisions AS s ON e.code_subdivision=s.code_subdivision;
