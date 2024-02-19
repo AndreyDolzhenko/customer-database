@@ -12,9 +12,9 @@ import {
 
 const router = Router();
 
-router.get('/', getEmployeesById);
+router.get('/', getAllEmployees);
 
-// router.get('/', getAllEmployees);
+router.get('/:id', getEmployeesById);
 
 router.post('/', createEmployee);
 

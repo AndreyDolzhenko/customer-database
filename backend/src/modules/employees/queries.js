@@ -10,7 +10,7 @@ const createEmployee = 'INSERT INTO employees (code_companie, code_position, cod
 
 const deleteEmployee = 'DELETE FROM employees WHERE id=$1 RETURNING *;';
 
-const updateEmployee = 'UPDATE employees SET employee_name = $2, wage = $3 WHERE id = $1';
+const updateEmployee = 'UPDATE employees SET code_companie = $2, code_position = $3, code_subdivision = $4, employee_name = $5, wage = $6 WHERE id = $1';
 
 export {
     getEmployeesById,

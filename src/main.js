@@ -1,3 +1,5 @@
+const URL='http://127.0.0.1:5000/api/v1';
+
 const registration = document.getElementById("registration");
 const registration_form = document.getElementById("registration_form");
 const form = document.querySelector("form"); // получаю содержимое формы
@@ -23,38 +25,22 @@ registration.addEventListener("click", function (event) {
 
 // получаем данные из формы и выводим в консоль
 
-form.addEventListener("submit", function (event) {
+form.addEventListener("submit", async function (event) {
+  event.preventDefault();
   console.log(formContent(array_form));
+  const content = formContent(array_form);
+  const employee = {
+    employeeName: content.name,
+    wage: content.surname,
+    email: content.email,
+  }
+  const response = await fetch(`${URL}/employees`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(employee),
+  })
+  const result = await response.text();
+  console.log(result);
 });
-
-// form.addEventListener("submit", function(event){
-//     for (let index = 0; index < array_form.length; index++) {
-//         if (array_form[index].type=='checkbox') {
-//             console.log(array_form[index].checked);
-//         } else{
-//             console.log(array_form[index].value);
-//         }
-//     }
-// });
-
-/*
-//РАБОТА С FETCH
-const main=document.querySelector('main');
-
-let id_addres='31.131.199.37';
-
-  fetch('https://api.ipify.org?format=json')
-  .then(response => response.json())    
-  .then(commits => {id_addres=Object.values(commits);
-                    console.log(id_addres);
-                    return id_addres});
-
-  console.log(id_addres);
-
-  let url=`https://ipinfo.io/${id_addres}/geo`;
-
-  fetch(url)
-  .then(response => response.json())  
-  .then(commits => main.innerHTML=`<p>${Object.keys(commits)+' : '+Object.values(commits)}</p>`);
- */
-//'https://ipinfo.io/31.131.199.37/geo'

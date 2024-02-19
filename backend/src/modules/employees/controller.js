@@ -12,20 +12,28 @@ import {
 } from "./queries.js";
 
 function getEmployeesById(req, res) {
-    const { id } = req.query;  
-    if (id) {
-        pool.query(getEmployeesByIdQuery, [id], (error, result) => {
-            if (error) throw error;
-            res.status(200).json(result.rows);       
-        });
-    }  else{
-        pool.query(getAllEmployeesQuery, (error, result) => {
-            if (error) throw error;
-            res.status(200).json(result.rows);            
-        });
-    }
-    
+    const { id } = req.params;
+    pool.query(getEmployeesByIdQuery, [id], (error, result) => {
+        if (error) throw error;
+        res.status(200).json(result.rows);       
+    });           
 }
+
+// function getEmployeesById(req, res) {
+//     const { id } = req.query;  
+//     if (id) {
+//         pool.query(getEmployeesByIdQuery, [id], (error, result) => {
+//             if (error) throw error;
+//             res.status(200).json(result.rows);       
+//         });
+//     }  else{
+//         pool.query(getAllEmployeesQuery, (error, result) => {
+//             if (error) throw error;
+//             res.status(200).json(result.rows);            
+//         });
+//     }
+    
+// }
 
 function getAllEmployees(req, res) {
           
@@ -66,13 +74,13 @@ function deleteEmployee(req, res) {
 function updateEmployee(req, res) {
     const { id } = req.params;
     const {        
-        nameCompanie: name_companie,
-        namePosition: name_position,
-        nameSubdivision: name_subdivision,
+        codeCompanie: code_companie,
+        codePosition: code_position,
+        codeSubdivision: code_subdivision,
         employeeName: employee_name,
         wage,
      } = req.body;
-    pool.query(updateEmployeeQuery, [id, employee_name, wage], (error, result) => {
+    pool.query(updateEmployeeQuery, [id, code_companie, code_position, code_subdivision, employee_name, wage], (error, result) => {
         if (error) throw error;
         res.status(200).send('Сотрудник успешно обновлён');            
     });
