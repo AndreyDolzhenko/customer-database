@@ -1,9 +1,15 @@
 const URL='http://127.0.0.1:5000/api/v1';
 
+const employeeDatabaseParameters = document.getElementById("employee_database_parameters");
+const employeeDatabaseParametersOpen = document.getElementById("employee_database_parameters_open");
+const employeeDatabase = document.getElementsByClassName("employee_database");
+const employeesForm = document.getElementById("employees");
 const registration = document.getElementById("registration");
 const registration_form = document.getElementById("registration_form");
 const form = document.querySelector("form"); // получаю содержимое формы
 const array_form = [...form]; // перевожу содержимое формы в массив
+
+let countReg=0;
 
 function formContent(arr) {
   let obj_form = [];
@@ -17,16 +23,40 @@ function formContent(arr) {
   return obj_form;
 }
 
+employeesForm.addEventListener("submit", function (event) {
+  console.log(employeesForm.children);
+});
+
 // открываем форму для заполнения
 registration.addEventListener("click", function (event) {
-  registration.style.display = "none";
-  registration_form.style.display = "inherit";
+  //registration.style.display = "none";
+  countReg++;
+  console.log(countReg);
+  if (countReg%2==0) {
+    registration_form.style.display = "none";
+  }else{
+    registration_form.style.display = "inherit";
+  }
+  
+});
+
+// открываем параметры базы
+employeeDatabaseParametersOpen.addEventListener("click", function (event) {
+  //registration.style.display = "none";
+  countReg++;
+  console.log(countReg);
+  if (countReg%2==0) {
+    employeeDatabaseParameters.style.display = "none";
+  }else{
+    employeeDatabaseParameters.style.display = "flex";
+  }
+  
 });
 
 // получаем данные из формы и выводим в консоль
 
 form.addEventListener("submit", async function (event) {
-  event.preventDefault();
+  event.preventDefault();  
   console.log(formContent(array_form));
   const content = formContent(array_form);
   const employee = {

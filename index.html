@@ -29,6 +29,54 @@
             </form>
         </div>
     </header>
+    <span id="employee_database_parameters_open" style="text-decoration: underline; cursor: pointer; font-style: italic;" title="Открыть">Параметры базы сотрудников</span>
+    <div id="employee_database_parameters">
+        <div>
+        <form id="company_name" class="employee_database" action="#">
+            <ul>
+                <li>Компания:</li>
+                <li><input type="text" placeholder="Наименование компании"></li>
+                <li>Форма собственности:</li>
+                <li><select>
+                    <option value="1">ИП</option>
+                    <option value="2">OOO</option>
+                    <option value="3">УК</option>
+                </select></li>
+                <li><input type="submit"></li>
+            </ul>
+              
+        </form>
+        </div>
+        <div>
+        <form id="staffing_table" class="employee_database" action="#">
+            
+                <li>Штатное расписание:</li>
+                <li><input type="text" placeholder="Подразделение"></li>
+                <li><input type="text" placeholder="Должность"></li>
+                <li><input type="text" placeholder="Оклад"></li>                
+                <li><input type="submit"></li>
+            </ul>
+              
+        </form>
+        </div>
+        <div>
+            <form id="employees" class="employee_database" action="#">
+                <ul>
+                    <li>Сотрудник:</li>
+                    <li><input type="text" placeholder="Имя"></li>
+                    <li><input type="text" placeholder="Отчество"></li>
+                    <li><input type="text" placeholder="Фамилия"></li> 
+                    <li><select name="sex" id="">
+                        <option value="man">мужчина</option>
+                        <option value="woman">женщина</option>
+                    </select></li>  
+                    <li><input type="date"> Дата рождения</li>             
+                    <li><input type="submit"></li>
+                </ul>
+                  
+            </form>
+            </div>
+    </div>
     <nav></nav>
     <main>
         

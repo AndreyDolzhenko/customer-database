@@ -39,3 +39,17 @@ CREATE TABLE employees (
 	SELECT CASE WHEN code_companie>0 AND code_companie<10 THEN employee_name ELSE 'not found' END FROM employees;
 
 	SELECT CASE WHEN e.id>0 AND e.id<10 THEN (e.id, c.name_companie, p.name_position, s.name_subdivision, e.employee_name, e.wage) ELSE 'not found' END FROM employees AS e LEFT JOIN companies AS c ON e.code_companie=c.code_companie LEFT JOIN positions AS p ON e.code_position=p.code_position LEFT JOIN subdivisions AS s ON e.code_subdivision=s.code_subdivision;
+
+	DROP TABLE employees;
+
+	CREATE TABLE staffing_table (code_position serial PRIMARY KEY, name_subdivision text, name_position text, salary numeric(6,2));
+
+	ALTER TABLE subdivisions ADD COLUMN salary text;
+
+	INSERT INTO staffing_table (name_subdivision, name_position, salary) VALUES ('Администрация', 'Директор', 300000.00), ('Администрация', 'Бухгалтер', 250000.00), ('Администрация', 'Специалист по кадрам', 150000.00), ('Отдел продаж', 'Торговый представитель', 120000.00), ('Отдел продаж', 'Консультант', 90000.00), ('Сервисный центр', 'Специалист', 75000.00), ('Сервисный центр', 'Диспетчер', 60000.00);
+
+	ALTER TABLE staffing_table ALTER COLUMN salary TYPE numeric(12,2)
+
+	CREATE TABLE employees (code_employees serial PRIMARY KEY, code_companie integer REFERENCES companies(code_companie), code_position integer REFERENCES staffing_table(code_position), name_employee text NOT NULL, surname_employee text NOT NULL, patronymic_employee text, sex text, date_of_birth_emplooyee date);
+
+	INSERT INTO employees (code_companie, code_position, name_employee, surname_employee, patronymic_employee, sex, date_of_birth_emplooyee) VALUES (1, 1, 'Иван', 'Петрович', 'Головняк', 'м', 1983.02.21);

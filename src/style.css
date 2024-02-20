@@ -5,6 +5,9 @@
 p{
     margin: 100px;
 }
+ul{
+    list-style-type: none;
+}
 body {    
     background: rgba(255, 160, 122, 0.2);     
     background-image: url(../img/phon_main.jpg);
@@ -49,4 +52,10 @@ font-size: small;
     float: right;
     display: none;
     margin: 50px;
+}
+#employee_database_parameters{
+    display: none;
+    width: 100%;
+    justify-content: space-around;
+    padding: 20px;
 }

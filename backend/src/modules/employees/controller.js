@@ -19,44 +19,27 @@ function getEmployeesById(req, res) {
     });           
 }
 
-// function getEmployeesById(req, res) {
-//     const { id } = req.query;  
-//     if (id) {
-//         pool.query(getEmployeesByIdQuery, [id], (error, result) => {
-//             if (error) throw error;
-//             res.status(200).json(result.rows);       
-//         });
-//     }  else{
-//         pool.query(getAllEmployeesQuery, (error, result) => {
-//             if (error) throw error;
-//             res.status(200).json(result.rows);            
-//         });
-//     }
-    
-// }
-
 function getAllEmployees(req, res) {
           
     pool.query(getAllEmployeesQuery, (error, result) => {
         if (error) throw error;
-        res.status(200).json(result.rows);  
-          
-        // for (let index = 0; index < result.rows.length; index++) {
+        res.status(200).json(result.rows);            
             
-        //     console.log(result.rows[index].name_companie);
-        // }       
     });
 }
 
 function createEmployee(req, res) {
     const { 
-        nameCompanie: name_companie,
-        namePosition: name_position,
-        nameSubdivision: name_subdivision,
-        employeeName: employee_name,
-        wage,
+        codeCompanie: code_companie,
+        codePosition: code_position,
+        nameEmployee: name_employee,
+        patronymicEmployee: patronymic_employee,
+        surnameEmployee: surname_employee,
+        sex,
+        dateOfBirthEmplooyee: date_of_birth_emplooyee,
+        
      } = req.body;
-    pool.query(createEmployeeQuery, [name_companie, name_position, name_subdivision, employee_name, wage], (error) => {
+    pool.query(createEmployeeQuery, [code_companie, code_position, name_employee, patronymic_employee, surname_employee, sex, date_of_birth_emplooyee], (error) => {
         if (error) throw error;
         res.status(201).send('Сотрудник успешно создан');
     });
@@ -76,11 +59,13 @@ function updateEmployee(req, res) {
     const {        
         codeCompanie: code_companie,
         codePosition: code_position,
-        codeSubdivision: code_subdivision,
-        employeeName: employee_name,
-        wage,
+        nameEmployee: name_employee,
+        patronymicEmployee: patronymic_employee,
+        surnameEmployee: surname_employee,
+        sex,
+        dateOfBirthEmplooyee: date_of_birth_emplooyee,
      } = req.body;
-    pool.query(updateEmployeeQuery, [id, code_companie, code_position, code_subdivision, employee_name, wage], (error, result) => {
+    pool.query(updateEmployeeQuery, [id, code_companie, code_position, name_employee, patronymic_employee, surname_employee, sex, date_of_birth_emplooyee], (error, result) => {
         if (error) throw error;
         res.status(200).send('Сотрудник успешно обновлён');            
     });
