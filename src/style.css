@@ -8,6 +8,13 @@ p{
 ul{
     list-style-type: none;
 }
+td{
+    padding: 0 5px 0 5px;
+}
+tr:nth-child(1) {
+    background: burlywood;
+    font-weight: bold;
+   }
 body {    
     background: rgba(255, 160, 122, 0.2);     
     background-image: url(../img/phon_main.jpg);
@@ -58,4 +65,10 @@ font-size: small;
     width: 100%;
     justify-content: space-around;
     padding: 20px;
+}
+.linksOnScreen{
+    text-decoration: underline; 
+    cursor: pointer; 
+    font-style: italic;
+    margin: 20px 0 0 20px;
 }

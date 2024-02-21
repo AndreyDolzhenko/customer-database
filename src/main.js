@@ -1,15 +1,21 @@
-const URL='http://127.0.0.1:5000/api/v1';
+const URL = "http://127.0.0.1:5000/api/v1";
 
-const employeeDatabaseParameters = document.getElementById("employee_database_parameters");
-const employeeDatabaseParametersOpen = document.getElementById("employee_database_parameters_open");
+const employeeDatabaseParameters = document.getElementById(
+  "employee_database_parameters"
+);
+const employeeDatabaseParametersOpen = document.getElementById(
+  "employee_database_parameters_open"
+);
 const employeeDatabase = document.getElementsByClassName("employee_database");
+const showEmployees = document.getElementById("showEmployees");
+const tableEmployees = document.getElementById("tableEmployees");
 const employeesForm = document.getElementById("employees");
 const registration = document.getElementById("registration");
 const registration_form = document.getElementById("registration_form");
 const form = document.querySelector("form"); // получаю содержимое формы
-const array_form = [...form]; // перевожу содержимое формы в массив
+const array_form = [...employeesForm]; // перевожу содержимое формы в массив
 
-let countReg=0;
+let countReg = 0;
 
 function formContent(arr) {
   let obj_form = [];
@@ -22,9 +28,118 @@ function formContent(arr) {
 
   return obj_form;
 }
+// Функция для получения данных из формы "Сотрудники"
+function formContent(arr) {
+  let obj_form = [];
+  obj_form.name = arr[0].value;
+  obj_form.patronymic = arr[1].value;
+  obj_form.surname = arr[2].value;
+  obj_form.sex = arr[3].value;
+  obj_form.dateOfBirth = arr[4].value;
 
-employeesForm.addEventListener("submit", function (event) {
-  console.log(employeesForm.children);
+  return obj_form;
+}
+
+// Создаём таблицу с сотрудниками на экране
+function createTable(content) {
+  // Очищаем таблицу перед заполнением
+  tableEmployees.innerHTML = "";
+  // Строим заголовок таблицы
+  let trHead = document.createElement("tr");
+  let idHead = document.createElement("td");
+  idHead.innerText = "id";
+  trHead.append(idHead);
+  let companyHead = document.createElement("td");
+  companyHead.innerText = "Компания";
+  trHead.append(companyHead);
+  let subdivisionHead = document.createElement("td");
+  subdivisionHead.innerText = "Подразделение";
+  trHead.append(subdivisionHead);
+  let positionHead = document.createElement("td");
+  positionHead.innerText = "Должность";
+  trHead.append(positionHead);
+  let surnameEmployeeHead = document.createElement("td");
+  surnameEmployeeHead.innerText = "Фамилия";
+  trHead.append(surnameEmployeeHead);
+  let nameEmployeeHead = document.createElement("td");
+  nameEmployeeHead.innerText = "Имя";
+  trHead.append(nameEmployeeHead);
+  let patronymicEmployeeHead = document.createElement("td");
+  patronymicEmployeeHead.innerText = "Отчество";
+  trHead.append(patronymicEmployeeHead);
+  let dateOfBirthEmplooyeeHead = document.createElement("td");
+  dateOfBirthEmplooyeeHead.innerText = "Дата рождения";
+  trHead.append(dateOfBirthEmplooyeeHead);
+  let salaryHead = document.createElement("td");
+  salaryHead.innerText = "Оклад";
+  trHead.append(salaryHead);
+  tableEmployees.append(trHead);
+  // Вновим в таблицу данные из запроса в бэкенд
+  content.forEach((el) => {
+    let tr = document.createElement("tr");
+    let idTable = document.createElement("td");
+    idTable.innerHTML = el.id;
+    tr.append(idTable);
+    let nameCompanieTable = document.createElement("td");
+    nameCompanieTable.innerHTML = el.name_companie;
+    tr.append(nameCompanieTable);
+    let nameSubdivision = document.createElement("td");
+    nameSubdivision.innerHTML = el.name_subdivision;
+    tr.append(nameSubdivision);
+    let namePosition = document.createElement("td");
+    namePosition.innerHTML = el.name_position;
+    tr.append(namePosition);
+    let surnameEmployee = document.createElement("td");
+    surnameEmployee.innerHTML = el.surname_employee;
+    tr.append(surnameEmployee);
+    let nameEmployee = document.createElement("td");
+    nameEmployee.innerHTML = el.name_employee;
+    tr.append(nameEmployee);
+    let patronymicEmployee = document.createElement("td");
+    patronymicEmployee.innerHTML = el.patronymic_employee;
+    tr.append(patronymicEmployee);
+    let dateOfBirthEmplooyee = document.createElement("td");
+    dateOfBirthEmplooyee.innerHTML = el.date_of_birth_emplooyee.slice(0, 10);
+    tr.append(dateOfBirthEmplooyee);
+    let salaryTable = document.createElement("td");
+    salaryTable.innerHTML = el.salary;
+    tr.append(salaryTable);
+    tableEmployees.append(tr);
+  });
+}
+
+// Получаем данные из формы "Сотрудники"
+employeesForm.addEventListener("submit", async function (event) {
+  event.preventDefault();
+  const content = formContent(array_form);
+  console.log(content);
+  const employee = {
+    nameEmployee: content.name,
+    patronymicEmployee: content.patronymic,
+    surnameEmployee: content.surname,
+    sex: content.sex,
+    dateOfBirthEmplooyee: content.dateOfBirth,
+  };
+  const response = await fetch(`${URL}/employees`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(employee),
+  });
+  const result = await response.text();
+  console.log(result);
+});
+
+// Выводим на экран таблицу "employees"
+showEmployees.addEventListener("click", async function (event) {
+  event.preventDefault();
+  const response = await fetch(`${URL}/employees`);
+  const result = await response.json();
+  // const createTable = createTable(result);
+  showEmployees.innerHTML = `Показать сотрудников<br><br>`;
+  createTable(result);
+  console.log(result);
 });
 
 // открываем форму для заполнения
@@ -32,12 +147,11 @@ registration.addEventListener("click", function (event) {
   //registration.style.display = "none";
   countReg++;
   console.log(countReg);
-  if (countReg%2==0) {
+  if (countReg % 2 == 0) {
     registration_form.style.display = "none";
-  }else{
+  } else {
     registration_form.style.display = "inherit";
   }
-  
 });
 
 // открываем параметры базы
@@ -45,32 +159,31 @@ employeeDatabaseParametersOpen.addEventListener("click", function (event) {
   //registration.style.display = "none";
   countReg++;
   console.log(countReg);
-  if (countReg%2==0) {
+  if (countReg % 2 == 0) {
     employeeDatabaseParameters.style.display = "none";
-  }else{
+  } else {
     employeeDatabaseParameters.style.display = "flex";
   }
-  
 });
 
 // получаем данные из формы и выводим в консоль
 
-form.addEventListener("submit", async function (event) {
-  event.preventDefault();  
-  console.log(formContent(array_form));
-  const content = formContent(array_form);
-  const employee = {
-    employeeName: content.name,
-    wage: content.surname,
-    email: content.email,
-  }
-  const response = await fetch(`${URL}/employees`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(employee),
-  })
-  const result = await response.text();
-  console.log(result);
-});
+// form.addEventListener("submit", async function (event) {
+//   event.preventDefault();
+//   console.log(formContent(array_form));
+//   const content = formContent(array_form);
+//   const employee = {
+//     employeeName: content.name,
+//     wage: content.surname,
+//     email: content.email,
+//   }
+//   const response = await fetch(`${URL}/employees`, {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(employee),
+//   })
+//   const result = await response.text();
+//   console.log(result);
+// });
