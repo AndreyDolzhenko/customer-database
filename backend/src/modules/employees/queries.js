@@ -12,8 +12,13 @@ const deleteEmployee = 'DELETE FROM employees WHERE id=$1 RETURNING *;';
 
 const updateEmployee = 'UPDATE employees SET code_companie = $2, code_position = $3, name_employee = $4, patronymic_employee = $5, surname_employee = $6, sex = $7, date_of_birth_emplooyee = $8 WHERE id = $1';
 
+const getAllStaffingTable = 'SELECT * FROM staffing_table;'
+
+const getAllCompanies = 'SELECT * FROM companies;'
+
 export {
-    // getAllCompanie,
+    getAllCompanies,
+    getAllStaffingTable,
     getEmployeesById,
     getAllEmployees,
     createEmployee,

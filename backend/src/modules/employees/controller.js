@@ -4,12 +4,28 @@
 import pool from "../../db/db.js";
 
 import {
+  getAllCompanies as getAllCompaniesQuery,
+  getAllStaffingTable as getAllStaffingTableQuery,
   getEmployeesById as getEmployeesByIdQuery,
   getAllEmployees as getAllEmployeesQuery,
   createEmployee as createEmployeeQuery,
   deleteEmployee as deleteEmployeeQuery,
   updateEmployee as updateEmployeeQuery,
 } from "./queries.js";
+
+function getAllCompanies(req, res) {
+  pool.query(getAllCompaniesQuery, (error, result) => {
+    if (error) throw error;
+    res.status(200).json(result.rows);
+  });
+}
+
+function getAllStaffingTable(req, res) {
+  pool.query(getAllStaffingTableQuery, (error, result) => {
+    if (error) throw error;
+    res.status(200).json(result.rows);
+  });
+}
 
 function getEmployeesById(req, res) {
   const { id } = req.params;
@@ -94,6 +110,8 @@ function updateEmployee(req, res) {
 }
 
 export {
+  getAllCompanies,
+  getAllStaffingTable,
   getEmployeesById,
   getAllEmployees,
   createEmployee,

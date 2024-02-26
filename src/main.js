@@ -6,6 +6,7 @@ const employeeDatabaseParameters = document.getElementById(
 const employeeDatabaseParametersOpen = document.getElementById(
   "employee_database_parameters_open"
 );
+const staffTable = document.getElementById("staffTable");
 const employeeDatabase = document.getElementsByClassName("employee_database");
 const showEmployees = document.getElementById("showEmployees");
 const tableEmployees = document.getElementById("tableEmployees");
@@ -17,7 +18,7 @@ const array_form = [...employeesForm]; // перевожу содержимое 
 
 let countReg = 0;
 
-function formContent(arr) {
+function formContentReg(arr) {
   let obj_form = [];
   obj_form.name = arr[0].value;
   obj_form.surname = arr[1].value;
@@ -74,7 +75,7 @@ function createTable(content) {
   salaryHead.innerText = "Оклад";
   trHead.append(salaryHead);
   tableEmployees.append(trHead);
-  // Вновим в таблицу данные из запроса в бэкенд
+  // Выводим в таблицу данные из запроса бэкенд
   content.forEach((el) => {
     let tr = document.createElement("tr");
     let idTable = document.createElement("td");
@@ -166,24 +167,10 @@ employeeDatabaseParametersOpen.addEventListener("click", function (event) {
   }
 });
 
-// получаем данные из формы и выводим в консоль
-
-// form.addEventListener("submit", async function (event) {
-//   event.preventDefault();
-//   console.log(formContent(array_form));
-//   const content = formContent(array_form);
-//   const employee = {
-//     employeeName: content.name,
-//     wage: content.surname,
-//     email: content.email,
-//   }
-//   const response = await fetch(`${URL}/employees`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(employee),
-//   })
-//   const result = await response.text();
-//   console.log(result);
-// });
+// получаем данные о должностях из штатного расписания
+staffTable.addEventListener("click", async function(event) {
+  event.preventDefault();
+  const response = await fetch(`${URL}/employees/comp`);
+  const result = await response.json();
+  console.log(result);
+});

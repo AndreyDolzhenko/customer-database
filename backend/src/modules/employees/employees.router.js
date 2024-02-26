@@ -3,6 +3,8 @@
 import { Router } from "express";
 
 import {
+    getAllCompanies,
+    getAllStaffingTable,
     getEmployeesById,
     getAllEmployees,
     createEmployee,
@@ -11,6 +13,10 @@ import {
 } from "./controller.js";
 
 const router = Router();
+
+router.get('/:comp', getAllCompanies);
+
+// router.get('/:staf', getAllStaffingTable);
 
 router.get('/', getAllEmployees);
 
