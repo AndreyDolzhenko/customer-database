@@ -170,7 +170,7 @@ employeeDatabaseParametersOpen.addEventListener("click", function (event) {
 // получаем данные о должностях из штатного расписания
 staffTable.addEventListener("click", async function(event) {
   event.preventDefault();
-  const response = await fetch(`${URL}/employees/comp`);
+  const response = await fetch(`${URL}/companies`);
   const result = await response.json();
   console.log(result);
 });

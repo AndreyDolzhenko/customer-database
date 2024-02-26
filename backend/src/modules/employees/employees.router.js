@@ -14,10 +14,6 @@ import {
 
 const router = Router();
 
-router.get('/:comp', getAllCompanies);
-
-// router.get('/:staf', getAllStaffingTable);
-
 router.get('/', getAllEmployees);
 
 router.get('/:id', getEmployeesById);
