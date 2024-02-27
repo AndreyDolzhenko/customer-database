@@ -2,9 +2,7 @@
 
 import { Router } from "express";
 
-import {
-    getAllCompanies,
-    getAllStaffingTable,
+import {        
     getEmployeesById,
     getAllEmployees,
     createEmployee,

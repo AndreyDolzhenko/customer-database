@@ -14,10 +14,7 @@ const updateEmployee = 'UPDATE employees SET code_companie = $2, code_position =
 
 const getAllStaffingTable = 'SELECT * FROM staffing_table;'
 
-const getAllCompanies = 'SELECT * FROM companies;'
-
-export {
-    getAllCompanies,
+export {    
     getAllStaffingTable,
     getEmployeesById,
     getAllEmployees,

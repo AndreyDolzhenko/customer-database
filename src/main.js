@@ -6,6 +6,8 @@ const employeeDatabaseParameters = document.getElementById(
 const employeeDatabaseParametersOpen = document.getElementById(
   "employee_database_parameters_open"
 );
+const spinner = document.getElementById("spinner");
+const companies = document.getElementById("companies");
 const staffTable = document.getElementById("staffTable");
 const employeeDatabase = document.getElementsByClassName("employee_database");
 const showEmployees = document.getElementById("showEmployees");
@@ -109,6 +111,23 @@ function createTable(content) {
   });
 }
 
+// НАЧАЛО СКРИПТА
+// window.onload = ()=>console.log('Yes');
+document.addEventListener("DOMContentLoaded", async function (event) {
+  event.preventDefault();  
+  const response = await fetch(`${URL}/employees`);
+  const result = await response.json();  
+  spinner.style.display = 'none';
+  showEmployees.innerHTML = `Показать сотрудников<br><br>`;
+  // if (window.onload) {  
+  //   console.log('Yes');
+  //   // window.addEventListener("load", ()=>console.log('Yes'));
+  // }
+  createTable(result);  
+  console.log(result);
+  
+});
+
 // Получаем данные из формы "Сотрудники"
 employeesForm.addEventListener("submit", async function (event) {
   event.preventDefault();
@@ -166,11 +185,18 @@ employeeDatabaseParametersOpen.addEventListener("click", function (event) {
     employeeDatabaseParameters.style.display = "flex";
   }
 });
+// получаем данные о компаниях
+companies.addEventListener("click", async function(event) {
+  event.preventDefault();
+  const response = await fetch(`${URL}/companies`);
+  const result = await response.json();
+  console.log(result);
+});
 
 // получаем данные о должностях из штатного расписания
 staffTable.addEventListener("click", async function(event) {
   event.preventDefault();
-  const response = await fetch(`${URL}/companies`);
+  const response = await fetch(`${URL}/staffing`);
   const result = await response.json();
   console.log(result);
 });
