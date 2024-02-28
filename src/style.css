@@ -72,8 +72,17 @@ font-size: small;
     font-style: italic;
     margin: 20px 0 0 20px;
 }
+#showEmployeesId{
+  display: none;
+}
+#showEmployeesForm{
+  display: none;
+}
 
 
+
+
+/* Спинер */
 .lds-spinner {
     color: official;
     display: inline-block;

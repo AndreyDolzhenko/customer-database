@@ -6,6 +6,9 @@ const employeeDatabaseParameters = document.getElementById(
 const employeeDatabaseParametersOpen = document.getElementById(
   "employee_database_parameters_open"
 );
+const editEmployee = document.getElementById("editEmployee");
+const showEmployeesId = document.getElementById("showEmployeesId");
+const showEmployeesForm = document.getElementById("showEmployeesForm");
 const spinner = document.getElementById("spinner");
 const companies = document.getElementById("companies");
 const staffTable = document.getElementById("staffTable");
@@ -16,7 +19,9 @@ const employeesForm = document.getElementById("employees");
 const registration = document.getElementById("registration");
 const registration_form = document.getElementById("registration_form");
 const form = document.querySelector("form"); // получаю содержимое формы
+const submitUpdate = document.getElementById("submitUpdate");
 const array_form = [...employeesForm]; // перевожу содержимое формы в массив
+let showEmployeesFormArr = [...showEmployeesForm];
 
 let countReg = 0;
 
@@ -41,6 +46,21 @@ function formContent(arr) {
   obj_form.dateOfBirth = arr[4].value;
 
   return obj_form;
+}
+
+function updateById(content) {
+  const employee = {
+    id: content[0].value,
+    codeCompanie: content[1].value,
+    codePosition: content[2].value,
+    nameEmployee: content[5].placeholder,
+    patronymicEmployee: content[6].placeholder,
+    surnameEmployee: content[4].placeholder,
+    sex: content[7].placeholder,
+    dateOfBirthEmplooyee: content[8].placeholder,
+  };
+
+  return employee;
 }
 
 // Создаём таблицу с сотрудниками на экране
@@ -115,6 +135,7 @@ function createTable(content) {
 // window.onload = ()=>console.log('Yes');
 document.addEventListener("DOMContentLoaded", async function (event) {
   event.preventDefault();  
+  
   const response = await fetch(`${URL}/employees`);
   const result = await response.json();  
   spinner.style.display = 'none';
@@ -123,9 +144,78 @@ document.addEventListener("DOMContentLoaded", async function (event) {
   //   console.log('Yes');
   //   // window.addEventListener("load", ()=>console.log('Yes'));
   // }
-  createTable(result);  
-  console.log(result);
+  createTable(result);   
+});
+
+// Вывод сотрудника по ID
+editEmployee.addEventListener("click", () => showEmployeesId.style.display = 'inline-block');
+showEmployeesId.addEventListener("keyup", async function (event) {
+  if (event.key == "Enter") {
+    if (isNaN(showEmployeesId.value) == false) {
+      event.preventDefault();
+      const response = await fetch(`${URL}/employees/${showEmployeesId.value}`);
+      const result = await response.json();
+      const responseAll = await fetch(`${URL}/employees/`);
+      const resultAll = await responseAll.json();
+      // console.log(resultAll);
+      // const createTable = createTable(result);
+      showEmployees.innerHTML = `Показать сотрудников<br><br>`;
+      // let arrId = [];
+      // result.forEach(el => {arrId.push(el.id)});
+      if (result[0]) {
+        showEmployeesForm.style.display = "block";
+                         
+        showEmployeesFormArr[0].placeholder = result[0].id;
+        showEmployeesFormArr[1].placeholder = result[0].name_companie;
+        showEmployeesFormArr[2].placeholder = result[0].name_subdivision;
+        showEmployeesFormArr[3].placeholder = result[0].name_position;
+        showEmployeesFormArr[4].placeholder = result[0].surname_employee;
+        showEmployeesFormArr[5].placeholder = result[0].name_employee;
+        showEmployeesFormArr[6].placeholder = result[0].patronymic_employee;
+        showEmployeesFormArr[7].placeholder = result[0].sex;
+        showEmployeesFormArr[8].placeholder = result[0].date_of_birth_emplooyee.slice(0, 10);
+        showEmployeesFormArr[9].placeholder = result[0].salary;
+        
+        console.log(result[0]);
+        // showEmployeesFormArr.forEach(el => console.log(el.placeholder));
+        // console.log(showEmployeesFormArr);
+      }else{
+        alert('ID сотрудника не найден!');
+      }
+      // createTable(result);
+      
+    }else{
+      alert('Введите число!');
+    }
+  }  
+});
+
+// Изменение данных сотрудника Update
+
+submitUpdate.addEventListener("click", async function (event) {
+  event.preventDefault();
+  const content = updateById(showEmployeesFormArr);
+  console.log(content);
   
+  const employee = {
+    id: content.id,
+    codeCompanie: content.codeCompanie,
+    codePosition: content.codePosition,
+    nameEmployee: content.nameEmployee,
+    patronymicEmployee: content.patronymicEmployee,
+    surnameEmployee: content.surnameEmployee,
+    sex: content.sex,
+    dateOfBirthEmplooyee: content.dateOfBirthEmplooyee,
+  };
+  const response = await fetch(`${URL}/employees/6`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(employee),
+  });
+  const result = await response.text();
+  console.log(result);
 });
 
 // Получаем данные из формы "Сотрудники"
@@ -155,11 +245,10 @@ employeesForm.addEventListener("submit", async function (event) {
 showEmployees.addEventListener("click", async function (event) {
   event.preventDefault();
   const response = await fetch(`${URL}/employees`);
-  const result = await response.json();
-  // const createTable = createTable(result);
+  const result = await response.json();  
   showEmployees.innerHTML = `Показать сотрудников<br><br>`;
-  createTable(result);
   console.log(result);
+  createTable(result);
 });
 
 // открываем форму для заполнения
@@ -190,7 +279,7 @@ companies.addEventListener("click", async function(event) {
   event.preventDefault();
   const response = await fetch(`${URL}/companies`);
   const result = await response.json();
-  console.log(result);
+  console.log(result);  
 });
 
 // получаем данные о должностях из штатного расписания
