@@ -47,10 +47,9 @@ function formContent(arr) {
 
   return obj_form;
 }
-
+// подготовка параметров для Update
 function updateById(content) {
-  const employee = {
-    id: content[0].value,
+  const employee = {    
     codeCompanie: content[1].value,
     codePosition: content[2].value,
     nameEmployee: content[5].placeholder,
@@ -132,23 +131,26 @@ function createTable(content) {
 }
 
 // НАЧАЛО СКРИПТА
-// window.onload = ()=>console.log('Yes');
+window.onload = ()=>console.log('Yes');
 document.addEventListener("DOMContentLoaded", async function (event) {
-  event.preventDefault();  
-  
+  event.preventDefault();
+
   const response = await fetch(`${URL}/employees`);
-  const result = await response.json();  
-  spinner.style.display = 'none';
+  const result = await response.json();
+  spinner.style.display = "none";
   showEmployees.innerHTML = `Показать сотрудников<br><br>`;
-  // if (window.onload) {  
+  // if (window.onload) {
   //   console.log('Yes');
   //   // window.addEventListener("load", ()=>console.log('Yes'));
   // }
-  createTable(result);   
+  createTable(result);
 });
 
 // Вывод сотрудника по ID
-editEmployee.addEventListener("click", () => showEmployeesId.style.display = 'inline-block');
+editEmployee.addEventListener(
+  "click",
+  () => (showEmployeesId.style.display = "inline-block")
+);
 showEmployeesId.addEventListener("keyup", async function (event) {
   if (event.key == "Enter") {
     if (isNaN(showEmployeesId.value) == false) {
@@ -164,7 +166,7 @@ showEmployeesId.addEventListener("keyup", async function (event) {
       // result.forEach(el => {arrId.push(el.id)});
       if (result[0]) {
         showEmployeesForm.style.display = "block";
-                         
+
         showEmployeesFormArr[0].placeholder = result[0].id;
         showEmployeesFormArr[1].placeholder = result[0].name_companie;
         showEmployeesFormArr[2].placeholder = result[0].name_subdivision;
@@ -173,21 +175,21 @@ showEmployeesId.addEventListener("keyup", async function (event) {
         showEmployeesFormArr[5].placeholder = result[0].name_employee;
         showEmployeesFormArr[6].placeholder = result[0].patronymic_employee;
         showEmployeesFormArr[7].placeholder = result[0].sex;
-        showEmployeesFormArr[8].placeholder = result[0].date_of_birth_emplooyee.slice(0, 10);
+        showEmployeesFormArr[8].placeholder =
+          result[0].date_of_birth_emplooyee.slice(0, 10);
         showEmployeesFormArr[9].placeholder = result[0].salary;
-        
+
         console.log(result[0]);
         // showEmployeesFormArr.forEach(el => console.log(el.placeholder));
         // console.log(showEmployeesFormArr);
-      }else{
-        alert('ID сотрудника не найден!');
+      } else {
+        alert("ID сотрудника не найден!");
       }
       // createTable(result);
-      
-    }else{
-      alert('Введите число!');
+    } else {
+      alert("Введите число!");
     }
-  }  
+  }
 });
 
 // Изменение данных сотрудника Update
@@ -196,9 +198,8 @@ submitUpdate.addEventListener("click", async function (event) {
   event.preventDefault();
   const content = updateById(showEmployeesFormArr);
   console.log(content);
-  
-  const employee = {
-    id: content.id,
+
+  const employee = {    
     codeCompanie: content.codeCompanie,
     codePosition: content.codePosition,
     nameEmployee: content.nameEmployee,
@@ -207,7 +208,8 @@ submitUpdate.addEventListener("click", async function (event) {
     sex: content.sex,
     dateOfBirthEmplooyee: content.dateOfBirthEmplooyee,
   };
-  const response = await fetch(`${URL}/employees/6`, {
+  console.log(showEmployeesFormArr[0].placeholder);
+  const response = await fetch(`${URL}/employees/${showEmployeesFormArr[0].placeholder}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -218,7 +220,7 @@ submitUpdate.addEventListener("click", async function (event) {
   console.log(result);
 });
 
-// Получаем данные из формы "Сотрудники"
+// Отравляем данные из формы "Сотрудники"
 employeesForm.addEventListener("submit", async function (event) {
   event.preventDefault();
   const content = formContent(array_form);
@@ -245,7 +247,7 @@ employeesForm.addEventListener("submit", async function (event) {
 showEmployees.addEventListener("click", async function (event) {
   event.preventDefault();
   const response = await fetch(`${URL}/employees`);
-  const result = await response.json();  
+  const result = await response.json();
   showEmployees.innerHTML = `Показать сотрудников<br><br>`;
   console.log(result);
   createTable(result);
@@ -275,15 +277,15 @@ employeeDatabaseParametersOpen.addEventListener("click", function (event) {
   }
 });
 // получаем данные о компаниях
-companies.addEventListener("click", async function(event) {
+companies.addEventListener("click", async function (event) {
   event.preventDefault();
   const response = await fetch(`${URL}/companies`);
   const result = await response.json();
-  console.log(result);  
+  console.log(result);
 });
 
 // получаем данные о должностях из штатного расписания
-staffTable.addEventListener("click", async function(event) {
+staffTable.addEventListener("click", async function (event) {
   event.preventDefault();
   const response = await fetch(`${URL}/staffing`);
   const result = await response.json();
