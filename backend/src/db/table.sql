@@ -52,4 +52,4 @@ CREATE TABLE employees (
 -- //////
 	CREATE TABLE employees (code_employees serial PRIMARY KEY, code_companie integer REFERENCES companies(code_companie), code_position integer REFERENCES staffing_table(code_position), name_employee text NOT NULL, surname_employee text NOT NULL, patronymic_employee text, sex text, date_of_birth_emplooyee date);
 
-	INSERT INTO employees (code_companie, code_position, name_employee, surname_employee, patronymic_employee, sex, date_of_birth_emplooyee) VALUES (1, 1, 'Иван', 'Петрович', 'Головняк', 'м', 1983.02.21);
+	INSERT INTO employees (code_companie, code_position, name_employee, surname_employee, patronymic_employee, sex, date_of_birth_emplooyee) VALUES (1, 1, 'Иван', 'Петрович', 'Головняк', 'м', '1983.02.21');
