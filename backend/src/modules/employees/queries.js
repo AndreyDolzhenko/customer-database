@@ -1,8 +1,8 @@
 // const getAllEmployees = 'SELECT * FROM employees';
 
-const getEmployeesById = 'SELECT e.id, c.name_companie, st.name_subdivision, st.name_position, e.name_employee, e.patronymic_employee, e.surname_employee, e.sex, e.date_of_birth_emplooyee, st.salary FROM employees AS e LEFT JOIN companies AS c ON e.code_companie=c.code_companie LEFT JOIN staffing_table AS st ON e.code_position=st.code_position WHERE id=$1;';
+const getEmployeesById = 'SELECT e.code_employees, c.name_companie, st.name_subdivision, st.name_position, e.name_employee, e.patronymic_employee, e.surname_employee, e.sex, e.date_of_birth_emplooyee, st.salary FROM employees AS e LEFT JOIN companies AS c ON e.code_companie=c.code_companie LEFT JOIN staffing_table AS st ON e.code_position=st.code_position WHERE code_employees=$1;';
 
-const getAllEmployees = 'SELECT e.id, c.name_companie, st.name_subdivision, st.name_position, e.name_employee, e.patronymic_employee, e.surname_employee, e.sex, e.date_of_birth_emplooyee, st.salary FROM employees AS e LEFT JOIN companies AS c ON e.code_companie=c.code_companie LEFT JOIN staffing_table AS st ON e.code_position=st.code_position;';
+const getAllEmployees = 'SELECT e.code_employees, c.name_companie, st.name_subdivision, st.name_position, e.name_employee, e.patronymic_employee, e.surname_employee, e.sex, e.date_of_birth_emplooyee, st.salary FROM employees AS e LEFT JOIN companies AS c ON e.code_companie=c.code_companie LEFT JOIN staffing_table AS st ON e.code_position=st.code_position;';
 
 // const getAllStaff = 'SELECT * FROM staffing_table;';
 
